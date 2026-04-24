@@ -6,6 +6,7 @@
 	margin: 0.5rem;
 	padding: 0.5rem;
 	transition: border-color 1s;
+	justify-content: space-between;
 }
 
 .task:hover {

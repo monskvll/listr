@@ -1,6 +1,7 @@
+import "./Task.css";
 import { useSortable } from "@dnd-kit/react/sortable";
 
-import "./Task.css";
+import { useRef, useState } from "react";
 
 export default function Task({
 	id,
@@ -11,11 +12,20 @@ export default function Task({
 	handleEdit,
 	handleDelete,
 }) {
-	const { ref } = useSortable({ id, index });
+	const [element, setElement] = useState<Element | null>(null);
+	const handleRef = useRef<HTMLButtonElement | null>(null);
+
+	useSortable({
+		id,
+		index,
+		element,
+		handle: handleRef,
+	});
+
 	return (
 		<li
-			ref={ref}
 			key={id}
+			ref={setElement}
 			className={`task task-level-${level} ${color}`}
 		>
 			<p className="textContent">{text}</p>
@@ -31,6 +41,12 @@ export default function Task({
 					onClick={() => handleDelete(id)}
 				>
 					🗑
+				</button>
+				<button
+					className="taskButton"
+					ref={handleRef}
+				>
+					⇵
 				</button>
 			</div>
 		</li>

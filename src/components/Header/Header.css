@@ -15,3 +15,8 @@
 	display: flex;
 	gap: 0.5rem;
 }
+
+.addButton {
+	width: 2rem;
+	height: 2rem;
+}

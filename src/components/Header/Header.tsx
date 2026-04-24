@@ -6,6 +6,7 @@ const Header = ({ setEditingTask, setIsModalOpen }) => {
 			<h1 className="headText">listr</h1>
 			<div className="buttonsWrapper">
 				<button
+					className="addButton"
 					onClick={() => {
 						setEditingTask(null);
 						setIsModalOpen(true);
@@ -13,8 +14,8 @@ const Header = ({ setEditingTask, setIsModalOpen }) => {
 				>
 					+
 				</button>
-				<button>Import</button>
-				<button>Export</button>
+				<button disabled>Import</button>
+				<button disabled>Export</button>
 			</div>
 		</div>
 	);
