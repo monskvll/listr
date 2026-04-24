@@ -12,7 +12,7 @@ export default function AddTaskModal({
 	onUpdate,
 	task,
 }) {
-	const [text, setText] = useState(task?.text ?? "");
+	const [text, setText] = useState(task ? task?.text : "");
 	const [level, setLevel] = useState(task?.level ?? "one");
 	const [color, setColor] = useState(task?.color ?? colorChoices[0]);
 
@@ -27,10 +27,9 @@ export default function AddTaskModal({
 		};
 
 		if (task?.id) {
-			console.log("update");
 			onUpdate(data);
 		} else {
-			console.log("create");
+			setText("");
 			onCreate(data);
 		}
 
