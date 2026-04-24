@@ -1,15 +1,20 @@
+import { useSortable } from "@dnd-kit/react/sortable";
+
 import "./Task.css";
 
 export default function Task({
 	id,
+	index,
 	level,
 	text,
 	color,
 	handleEdit,
 	handleDelete,
 }) {
+	const { ref } = useSortable({ id, index });
 	return (
 		<li
+			ref={ref}
 			key={id}
 			className={`task task-level-${level} ${color}`}
 		>
