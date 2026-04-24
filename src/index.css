@@ -1,7 +1,7 @@
 :root {
 	--text: #6b6375;
 	--text-h: #08060d;
-	--bg: #fff;
+	--bg: var(--color-papaya-whip);
 	--border: #e5e4e7;
 	--code-bg: #f4f3ec;
 	--accent: #aa3bff;
@@ -25,12 +25,32 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
+	/* Colors */
+	--color-molten-lava: #780000;
+	--color-strawberry-red: #e63946;
+	--color-papaya-whip: #fdf0d5;
+	--color-honeydew: #f1faee;
+	--color-frosted-blue: #a8dadc;
+	--color-steel-blue: #457b9d;
+
+	.honeydew {
+		background-color: var(--color-honeydew);
+		color: var(--color-steel-blue);
+	}
+
+	.frostedBlue {
+		background-color: var(--color-frosted-blue);
+		color: var(--color-steel-blue);
+	}
+
+	.steelBlue {
+		background-color: var(--color-steel-blue);
+		color: var(--color-honeydew);
+	}
+
 	@media (max-width: 1024px) {
 		font-size: 16px;
 	}
-}
-
-#root {
 }
 
 body {
@@ -41,7 +61,6 @@ h1,
 h2 {
 	font-family: var(--heading);
 	font-weight: 500;
-	color: var(--text-h);
 }
 
 h1 {
@@ -64,6 +83,10 @@ h2 {
 }
 p {
 	margin: 0;
+}
+
+ul {
+	padding: 0;
 }
 
 code,

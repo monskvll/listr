@@ -2,7 +2,7 @@ import "./Task.css";
 
 export default function Task({
 	id,
-	priority,
+	level,
 	text,
 	color,
 	handleEdit,
@@ -11,16 +11,23 @@ export default function Task({
 	return (
 		<li
 			key={id}
-			className="task"
-			style={{ backgroundColor: color }}
+			className={`task task-level-${level} ${color}`}
 		>
-			<div>{id}</div>
-			<div>{priority}</div>
-			<p>{text}</p>
-			<button onClick={() => handleEdit({ id, priority, text, color })}>
-				Edit
-			</button>
-			<button onClick={() => handleDelete(id)}>Delete</button>
+			<p className="textContent">{text}</p>
+			<div className="buttonsWrapper">
+				<button
+					className="taskButton"
+					onClick={() => handleEdit({ id, level, text, color })}
+				>
+					✎
+				</button>
+				<button
+					className="taskButton"
+					onClick={() => handleDelete(id)}
+				>
+					🗑
+				</button>
+			</div>
 		</li>
 	);
 }

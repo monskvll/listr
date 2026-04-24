@@ -1,4 +1,39 @@
 .task {
-	border: 1px solid red;
+	display: flex;
+	border: 3px solid rgba(255, 255, 255, 0.829);
 	list-style-type: none;
+	border-radius: 10px;
+	margin: 0.5rem;
+	padding: 0.5rem;
+	transition: border-color 1s;
+}
+
+.task:hover {
+	border-color: var(--color-strawberry-red);
+}
+
+.task-level-one {
+	margin-left: 0;
+}
+
+.task-level-two {
+	margin-left: 2rem;
+}
+
+.task-level-three {
+	margin-left: 4rem;
+}
+
+.textContent {
+}
+
+.buttonsWrapper {
+	display: flex;
+	gap: 0.25rem;
+	margin-left: 0.5rem;
+}
+
+.taskButton {
+	width: 2rem;
+	height: 2rem;
 }

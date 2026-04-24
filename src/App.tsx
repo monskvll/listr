@@ -1,22 +1,23 @@
 import { useState, type SetStateAction } from "react";
 import { Theme } from "@radix-ui/themes";
 
-import Task from "./components/Task/Task";
-import Header from "./components/Header/Header";
 import Dialog from "./components/Dialog/Dialog";
+import Header from "./components/Header/Header";
+import Task from "./components/Task/Task";
+import TaskList from "./components/TaskList/TaskList";
 
 import "./App.css";
 
 type Task = {
 	id: string;
 	text: string;
-	priority: "low" | "medium" | "high";
+	level: "low" | "medium" | "high";
 	color: string;
 };
 
 type TaskInput = {
 	text: string;
-	priority: "low" | "medium" | "high";
+	level: "low" | "medium" | "high";
 	color: string;
 };
 
@@ -51,10 +52,6 @@ function App() {
 	return (
 		<>
 			<Theme>
-				<Header
-					setIsModalOpen={setIsModalOpen}
-					setEditingTask={setEditingTask}
-				/>
 				<Dialog
 					open={isModalOpen}
 					onOpenChange={setIsModalOpen}
@@ -63,18 +60,15 @@ function App() {
 					task={editingTask}
 					key={editingTask?.id ?? "new"}
 				/>
-				<ul>
-					{tasks.map((item) => {
-						console.log(item);
-						return (
-							<Task
-								{...item}
-								handleEdit={handleEdit}
-								handleDelete={handleDelete}
-							/>
-						);
-					})}
-				</ul>
+				<Header
+					setIsModalOpen={setIsModalOpen}
+					setEditingTask={setEditingTask}
+				/>
+				<TaskList
+					tasks={tasks}
+					handleEdit={handleEdit}
+					handleDelete={handleDelete}
+				/>
 			</Theme>
 		</>
 	);

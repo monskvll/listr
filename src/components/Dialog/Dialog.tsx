@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import "./Dialog.css";
 
+const colorChoices = ["honeydew", "frostedBlue", "steelBlue"];
+
 export default function AddTaskModal({
 	open,
 	onOpenChange,
@@ -11,10 +13,8 @@ export default function AddTaskModal({
 	task,
 }) {
 	const [text, setText] = useState(task?.text ?? "");
-	const [priority, setPriority] = useState(task?.priority ?? "low");
+	const [level, setLevel] = useState(task?.level ?? "low");
 	const [color, setColor] = useState(task?.color ?? "white");
-
-	console.log("task", task);
 
 	const handleSubmit = (e: React.SubmitEvent) => {
 		e.preventDefault();
@@ -22,7 +22,7 @@ export default function AddTaskModal({
 		const data = {
 			...task,
 			text,
-			priority,
+			level,
 			color,
 		};
 
@@ -44,56 +44,48 @@ export default function AddTaskModal({
 		>
 			<Dialog.Portal>
 				<Dialog.Overlay className="dialogOverlay" />
-
 				<Dialog.Content className="dialogContent">
 					<Dialog.Title>
 						{task ? "Edit Task" : "Add Task"}
 					</Dialog.Title>
-
 					<form
 						onSubmit={handleSubmit}
 						className="dialogForm"
 					>
-						<input
-							value={text}
-							onChange={(e) => setText(e.target.value)}
-							placeholder="Task..."
-							className="dialogInput"
-						/>
-
-						<select
-							value={priority}
-							onChange={(e) => setPriority(e.target.value)}
-							className="dialogSelect"
-						>
-							<option value="low">Low</option>
-							<option value="medium">Medium</option>
-							<option value="high">High</option>
-						</select>
-
-						<input
-							type="color"
-							id="color"
-							name="color"
-							value={color}
-							onChange={(e) => setColor(e.target.value)}
-							className="dialogColors"
-						/>
-
-						{/* <div className="flex gap-2">
-							{["blue", "green", "red"].map((c) => (
-								<button
-									key={c}
-									type="button"
-									onClick={() => setColor(c)}
-									style={{ backgroundColor: c }}
-									className={`w-20 h-20 rounded-full ${
-										color === c ? "ring-2 ring-black" : ""
-									}`}
-								/>
-							))}
-						</div> */}
-
+						<div>
+							<p>Content</p>
+							<input
+								value={text}
+								onChange={(e) => setText(e.target.value)}
+								placeholder="Task..."
+								className="dialogInput"
+							/>
+						</div>
+						<div>
+							<p>Level</p>
+							<select
+								value={level}
+								onChange={(e) => setLevel(e.target.value)}
+								className="dialogSelect"
+							>
+								<option value="one">1</option>
+								<option value="two">2</option>
+								<option value="three">3</option>
+							</select>
+						</div>
+						<div>
+							<p>Color</p>
+							<div className="dialogColorsWrapper">
+								{colorChoices.map((color) => (
+									<button
+										key={color}
+										type="button"
+										onClick={() => setColor(color)}
+										className={`dialogColor ${color}`}
+									/>
+								))}
+							</div>
+						</div>
 						<div className="dialogActions">
 							<Dialog.Close asChild>
 								<button type="button">Cancel</button>
