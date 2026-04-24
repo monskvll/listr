@@ -13,8 +13,8 @@ export default function AddTaskModal({
 	task,
 }) {
 	const [text, setText] = useState(task?.text ?? "");
-	const [level, setLevel] = useState(task?.level ?? "low");
-	const [color, setColor] = useState(task?.color ?? "white");
+	const [level, setLevel] = useState(task?.level ?? "one");
+	const [color, setColor] = useState(task?.color ?? colorChoices[0]);
 
 	const handleSubmit = (e: React.SubmitEvent) => {
 		e.preventDefault();
@@ -91,7 +91,10 @@ export default function AddTaskModal({
 								<button type="button">Cancel</button>
 							</Dialog.Close>
 
-							<button type="submit">
+							<button
+								type="submit"
+								disabled={!text}
+							>
 								{task ? "Update" : "Create"}
 							</button>
 						</div>
