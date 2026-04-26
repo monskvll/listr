@@ -63,6 +63,8 @@ function App() {
 				<Header
 					setIsModalOpen={setIsModalOpen}
 					setEditingTask={setEditingTask}
+					setTasks={setTasks}
+					tasks={tasks}
 				/>
 				<TaskList
 					tasks={tasks}
