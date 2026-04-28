@@ -1,19 +1,13 @@
 import { useState, type SetStateAction } from "react";
 import { Theme } from "@radix-ui/themes";
 
-import Dialog from "./components/Dialog/Dialog";
+import ConfirmationModal from "./components/ConfirmationModal/ConfirmationModal";
+import TaskModal from "./components/TaskModal/TaskModal";
 import Header from "./components/Header/Header";
-import Task from "./components/Task/Task";
+import type { TaskData } from "./utils/types.types";
 import TaskList from "./components/TaskList/TaskList";
 
 import "./App.css";
-
-type Task = {
-	id: string;
-	text: string;
-	level: "low" | "medium" | "high";
-	color: string;
-};
 
 type TaskInput = {
 	text: string;
@@ -21,16 +15,20 @@ type TaskInput = {
 	color: string;
 };
 
-function App() {
+const App = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [tasks, setTasks] = useState<Task[]>([]);
-	const [editingTask, setEditingTask] = useState<Task | null>(null);
+	const [isConfModalOpen, setIsConfModalOpen] = useState(false);
+	const [tasks, setTasks] = useState<TaskData[]>([]);
+	const [activeTask, setActiveTask] = useState<TaskData | null>(null);
 
 	const handleCreate = (task: TaskInput) => {
-		setTasks((prev) => [...prev, { ...task, id: crypto.randomUUID() }]);
+		setTasks((prev) => [
+			...prev,
+			{ ...task, id: crypto.randomUUID(), index: prev.length },
+		]);
 	};
 
-	const handleUpdate = (task: Task) => {
+	const handleUpdate = (task: TaskData) => {
 		if (task.id) {
 			setTasks((prev) =>
 				prev.map((t) =>
@@ -40,8 +38,8 @@ function App() {
 		}
 	};
 
-	const handleEdit = (task: SetStateAction<Task | null>) => {
-		setEditingTask(task);
+	const handleEdit = (task: SetStateAction<TaskData | null>) => {
+		setActiveTask(task);
 		setIsModalOpen(true);
 	};
 
@@ -52,28 +50,35 @@ function App() {
 	return (
 		<>
 			<Theme>
-				<Dialog
+				<TaskModal
 					open={isModalOpen}
 					onOpenChange={setIsModalOpen}
 					onCreate={handleCreate}
 					onUpdate={handleUpdate}
-					task={editingTask}
-					key={editingTask?.id ?? "new"}
+					task={activeTask}
+					key={activeTask?.id ?? "new"}
+				/>
+				<ConfirmationModal
+					open={isConfModalOpen}
+					onOpenChange={setIsConfModalOpen}
+					handleDelete={handleDelete}
+					task={activeTask}
 				/>
 				<Header
 					setIsModalOpen={setIsModalOpen}
-					setEditingTask={setEditingTask}
+					setActiveTask={setActiveTask}
 					setTasks={setTasks}
 					tasks={tasks}
 				/>
 				<TaskList
 					tasks={tasks}
 					handleEdit={handleEdit}
-					handleDelete={handleDelete}
+					setActiveTask={setActiveTask}
+					setIsConfModalOpen={setIsConfModalOpen}
 				/>
 			</Theme>
 		</>
 	);
-}
+};
 
 export default App;

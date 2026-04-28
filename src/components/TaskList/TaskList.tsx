@@ -1,17 +1,23 @@
-import { useSortable } from "@dnd-kit/react/sortable";
+import type { TaskListProps } from "../../utils/types.types";
 
 import Task from "../Task/Task";
 
-const TaskList = ({ tasks, handleEdit, handleDelete }) => {
+const TaskList = ({
+	tasks,
+	handleEdit,
+	setIsConfModalOpen,
+	setActiveTask,
+}: TaskListProps) => {
 	return (
 		<ul className="taskList">
 			{tasks.map((task, index: number) => {
 				return (
 					<Task
-						{...task}
 						index={index}
+						task={task}
 						handleEdit={handleEdit}
-						handleDelete={handleDelete}
+						setIsConfModalOpen={setIsConfModalOpen}
+						setActiveTask={setActiveTask}
 					/>
 				);
 			})}

@@ -1,19 +1,21 @@
-import "./Task.css";
+import { useRef, useState } from "react";
 import { useSortable } from "@dnd-kit/react/sortable";
 
-import { useRef, useState } from "react";
+import type { TaskProps } from "../../utils/types.types";
 
-export default function Task({
-	id,
+import "./Task.css";
+
+const Task = ({
+	task,
 	index,
-	level,
-	text,
-	color,
 	handleEdit,
-	handleDelete,
-}) {
+	setIsConfModalOpen,
+	setActiveTask,
+}: TaskProps) => {
 	const [element, setElement] = useState<Element | null>(null);
 	const handleRef = useRef<HTMLButtonElement | null>(null);
+
+	const { id, level, text, color } = task;
 
 	useSortable({
 		id,
@@ -38,7 +40,10 @@ export default function Task({
 				</button>
 				<button
 					className="taskButton"
-					onClick={() => handleDelete(id)}
+					onClick={() => {
+						setActiveTask(task);
+						setIsConfModalOpen(true);
+					}}
 				>
 					🗑
 				</button>
@@ -51,4 +56,6 @@ export default function Task({
 			</div>
 		</li>
 	);
-}
+};
+
+export default Task;

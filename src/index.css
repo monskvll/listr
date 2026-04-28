@@ -1,7 +1,7 @@
 :root {
 	--text: #6b6375;
 	--text-h: #08060d;
-	--bg: var(--color-papaya-whip);
+	--bg: var(--color-dark-meadow);
 	--border: #e5e4e7;
 	--code-bg: #f4f3ec;
 	--accent: #aa3bff;
@@ -26,9 +26,9 @@
 	-moz-osx-font-smoothing: grayscale;
 
 	/* Colors */
-	--color-molten-lava: #780000;
-	--color-strawberry-red: #e63946;
-	--color-papaya-whip: #fdf0d5;
+	--color-shiny-sea: #39d8e6;
+	--color-pale-moon: #363e42;
+	--color-dark-meadow: #101010;
 	--color-honeydew: #f1faee;
 	--color-frosted-blue: #a8dadc;
 	--color-steel-blue: #457b9d;

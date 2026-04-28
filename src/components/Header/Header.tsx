@@ -1,36 +1,15 @@
+import { exportData, importData } from "../../utils/utils";
+
+import type { HeaderProps } from "../../utils/types.types";
+
 import "./Header.css";
 
-/* Reorganize functions */
-function exportData(data) {
-	const json = JSON.stringify(data, null, 2);
-	const blob = new Blob([json], { type: "application/json" });
-	const url = URL.createObjectURL(blob);
-
-	const a = document.createElement("a");
-	a.href = url;
-	a.download = "listr.json";
-	a.click();
-
-	URL.revokeObjectURL(url);
-}
-
-function importData(event, setData) {
-	const file = event.target.files[0];
-
-	if (!file) return;
-
-	file.text().then((text: string) => {
-		try {
-			const data = JSON.parse(text);
-			setData(data);
-		} catch (error) {
-			alert("Invalid file imported!");
-			console.error("Invalid JSON file: ", error);
-		}
-	});
-}
-
-const Header = ({ setEditingTask, setIsModalOpen, tasks, setTasks }) => {
+const Header = ({
+	setActiveTask,
+	setIsModalOpen,
+	tasks,
+	setTasks,
+}: HeaderProps) => {
 	return (
 		<div className="headerWrapper">
 			<h1 className="headText">listr</h1>
@@ -38,7 +17,7 @@ const Header = ({ setEditingTask, setIsModalOpen, tasks, setTasks }) => {
 				<button
 					className="addButton"
 					onClick={() => {
-						setEditingTask(null);
+						setActiveTask(null);
 						setIsModalOpen(true);
 					}}
 				>

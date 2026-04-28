@@ -1,36 +1,42 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 
-import "./Dialog.css";
+import type { TaskModalProps } from "../../utils/types.types";
+
+import "./TaskModal.css";
 
 const colorChoices = ["honeydew", "frostedBlue", "steelBlue"];
 
-export default function AddTaskModal({
+const TaskModal = ({
 	open,
 	onOpenChange,
 	onCreate,
 	onUpdate,
 	task,
-}) {
+}: TaskModalProps) => {
 	const [text, setText] = useState(task ? task?.text : "");
-	const [level, setLevel] = useState(task?.level ?? "one");
+	const [level, setLevel] = useState<"low" | "medium" | "high">(
+		task?.level ?? "low",
+	);
 	const [color, setColor] = useState(task?.color ?? colorChoices[0]);
 
 	const handleSubmit = (e: React.SubmitEvent) => {
 		e.preventDefault();
 
-		const data = {
-			...task,
-			text,
-			level,
-			color,
-		};
-
 		if (task?.id) {
-			onUpdate(data);
+			onUpdate({
+				...task,
+				text,
+				level,
+				color,
+			});
 		} else {
 			setText("");
-			onCreate(data);
+			onCreate({
+				text,
+				level,
+				color,
+			});
 		}
 
 		onOpenChange(false);
@@ -64,12 +70,19 @@ export default function AddTaskModal({
 							<p>Level</p>
 							<select
 								value={level}
-								onChange={(e) => setLevel(e.target.value)}
+								onChange={(e) =>
+									setLevel(
+										e.target.value as
+											| "low"
+											| "medium"
+											| "high",
+									)
+								}
 								className="dialogSelect"
 							>
-								<option value="one">1</option>
-								<option value="two">2</option>
-								<option value="three">3</option>
+								<option value="high">1</option>
+								<option value="medium">2</option>
+								<option value="low">3</option>
 							</select>
 						</div>
 						<div>
@@ -102,4 +115,6 @@ export default function AddTaskModal({
 			</Dialog.Portal>
 		</Dialog.Root>
 	);
-}
+};
+
+export default TaskModal;

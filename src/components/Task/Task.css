@@ -10,18 +10,18 @@
 }
 
 .task:hover {
-	border-color: var(--color-strawberry-red);
+	border-color: var(--color-shiny-sea);
 }
 
-.task-level-one {
+.task-level-high {
 	margin-left: 0;
 }
 
-.task-level-two {
+.task-level-medium {
 	margin-left: 2rem;
 }
 
-.task-level-three {
+.task-level-low {
 	margin-left: 4rem;
 }
 
