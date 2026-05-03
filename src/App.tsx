@@ -1,4 +1,4 @@
-import { useState, type SetStateAction } from "react";
+import { useState } from "react";
 import { Theme } from "@radix-ui/themes";
 
 import ConfirmationModal from "./components/ConfirmationModal/ConfirmationModal";
@@ -6,8 +6,6 @@ import TaskModal from "./components/TaskModal/TaskModal";
 import Header from "./components/Header/Header";
 import type { TaskData } from "./utils/types.types";
 import TaskList from "./components/TaskList/TaskList";
-
-import "./App.css";
 
 type TaskInput = {
 	text: string;
@@ -38,8 +36,10 @@ const App = () => {
 		}
 	};
 
-	const handleEdit = (task: SetStateAction<TaskData | null>) => {
-		setActiveTask(task);
+	const handleEdit = (task: Omit<TaskData, "index">) => {
+		const fullTask = tasks.find((t) => t.id === task.id);
+
+		setActiveTask(fullTask ?? ({ ...task, index: 0 } as TaskData));
 		setIsModalOpen(true);
 	};
 

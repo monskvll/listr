@@ -1,4 +1,8 @@
-export function exportData(data) {
+import type { ChangeEvent } from "react";
+
+import type { TaskData } from "./types.types";
+
+export function exportData(data: TaskData[]) {
 	const json = JSON.stringify(data, null, 2);
 	const blob = new Blob([json], { type: "application/json" });
 	const url = URL.createObjectURL(blob);
@@ -11,8 +15,11 @@ export function exportData(data) {
 	URL.revokeObjectURL(url);
 }
 
-export function importData(event, setData) {
-	const file = event.target.files[0];
+export function importData(
+	event: ChangeEvent<HTMLInputElement>,
+	setData: (data: TaskData[]) => void,
+) {
+	const file = event.target.files?.[0];
 
 	if (!file) return;
 
